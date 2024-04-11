@@ -32,8 +32,6 @@ export class CategoriesService {
   }
 
   create(payload: CreateCategoryDto) {
-    console.log(payload);
-
     const newCategory = {
       id: this.categories.length + 1,
       ...payload,

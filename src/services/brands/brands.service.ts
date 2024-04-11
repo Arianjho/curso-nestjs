@@ -32,8 +32,6 @@ export class BrandsService {
   }
 
   create(payload: CreateBrandDto) {
-    console.log(payload);
-
     const newBrand = {
       id: this.brands.length + 1,
       ...payload,
