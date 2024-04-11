@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { CreateProductDto, UpdateProductDto } from 'src/dtos/products.dto';
 import { ProductEntity } from 'src/entities/product.entity';
 
 @Injectable()
@@ -9,21 +10,18 @@ export class ProductsService {
       name: 'Product 1',
       description: 'Description 1',
       price: 100,
-      image: 'https://via.placeholder.com/150',
     },
     {
       id: 2,
       name: 'Product 2',
       description: 'Description 2',
       price: 200,
-      image: 'https://via.placeholder.com/150',
     },
     {
       id: 3,
       name: 'Product 3',
       description: 'Description 3',
       price: 300,
-      image: 'https://via.placeholder.com/150',
     },
   ];
 
@@ -32,23 +30,29 @@ export class ProductsService {
   }
 
   findOne(id: number) {
-    return this.products.find((product) => product.id === id);
+    const product = this.products.find((product) => product.id === id);
+    if (!product) {
+      throw new NotFoundException(`Product #${id} not found`);
+    }
+    return product;
   }
 
-  create(payload: any) {
+  create(payload: CreateProductDto) {
+    console.log(payload);
+
     const newProduct = {
       id: this.products.length + 1,
       ...payload,
     };
-    this.products.push(payload);
+    this.products.push(newProduct);
 
     return newProduct;
   }
 
-  update(id: number, changes: any) {
+  update(id: number, changes: UpdateProductDto) {
     const index = this.products.findIndex((product) => product.id === id);
     if (index === -1) {
-      throw new Error('Product not found');
+      throw new NotFoundException(`Product #${id} not found`);
     }
     this.products[index] = {
       ...this.products[index],
@@ -60,7 +64,7 @@ export class ProductsService {
   delete(id: number) {
     const index = this.products.findIndex((product) => product.id === id);
     if (index === -1) {
-      throw new Error('Product not found');
+      throw new NotFoundException(`Product #${id} not found`);
     }
     const product = this.products[index];
     this.products = this.products.filter((product) => product.id !== id);

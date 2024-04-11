@@ -3,5 +3,4 @@ export class ProductEntity {
   name: string;
   description: string;
   price: number;
-  image: string;
 }
