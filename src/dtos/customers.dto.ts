@@ -7,24 +7,24 @@ export class CreateCustomerDto {
   @Max(99999999)
   @IsNotEmpty()
   @IsPositive()
-  dni: number;
+  readonly dni: number;
 
   @IsString()
   @IsNotEmpty()
-  name: string;
+  readonly name: string;
 
   @IsString()
   @IsNotEmpty()
-  lastname: string;
+  readonly lastname: string;
 
   @IsString()
   @IsNotEmpty()
-  address: string;
+  readonly address: string;
 
   @IsNumber()
   @IsNotEmpty()
   @IsPhoneNumber('PE')
-  phone: number;
+  readonly phone: number;
 }
 
 export class UpdateCustomerDto extends PartialType(CreateCustomerDto) {}
