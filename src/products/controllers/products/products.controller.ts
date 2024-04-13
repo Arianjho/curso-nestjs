@@ -9,15 +9,18 @@ import {
   HttpStatus,
   HttpCode
 } from '@nestjs/common';
-import { ProductsService } from 'src/services/products/products.service';
+import { ProductsService } from 'src/products/services/products/products.service';
 import { ParseIntPipe } from 'src/common/parse-int/parse-int.pipe';
-import { CreateProductDto, UpdateProductDto } from 'src/dtos/products.dto';
+import { CreateProductDto, UpdateProductDto } from 'src/products/dtos/products.dto';
+import { ApiOperation, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('products')
 @Controller('products')
 export class ProductsController {
   constructor(private productsService: ProductsService) {}
 
   @Get()
+  @ApiOperation({ summary: 'Lista de productos' })
   getAll() {
     return this.productsService.findAll();
   }
