@@ -21,10 +21,10 @@ export class CreateCustomerDto {
   @IsNotEmpty()
   readonly address: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
   @IsPhoneNumber('PE')
-  readonly phone: number;
+  readonly phone: string;
 }
 
 export class UpdateCustomerDto extends PartialType(CreateCustomerDto) {}
