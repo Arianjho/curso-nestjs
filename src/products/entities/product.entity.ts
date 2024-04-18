@@ -25,10 +25,18 @@ export class ProductEntity {
   @Column({ type: 'int' })
   price: number;
 
-  @CreateDateColumn({ type: 'timestamp', name: 'created_at', default: () => 'CURRENT_TIMESTAMP'})
+  @CreateDateColumn({
+    type: 'timestamp',
+    name: 'created_at',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   createdAt: Date;
 
-  @UpdateDateColumn({ type: 'timestamp', name: 'updated_at', default: () => 'CURRENT_TIMESTAMP'})
+  @UpdateDateColumn({
+    type: 'timestamp',
+    name: 'updated_at',
+    default: () => 'CURRENT_TIMESTAMP',
+  })
   updatedAt: Date;
 
   @ManyToOne(() => BrandEntity, (brand) => brand.products)
